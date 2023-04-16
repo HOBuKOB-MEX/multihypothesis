@@ -23,7 +23,7 @@ Arguments:
 * _lam_ matrix of Lagrange multipliers
 * _th_ vector of the hypothesized values of the parameter (success probability)
 * _gam_ the vector of weights  used to calculate the weighted expected sample size (ESS) 
-* _thgam_ parameter values at which ESSs are calculated to  be calculated in the weighted ESS 
+* _thgam_ parameter values at which ESSs are calculated to  used in the weighted ESS 
 
 Returns:  the designed test which minimizes the weighted ESS
 
@@ -33,7 +33,7 @@ The function for designing a truncated  MSPRT (see description in [*the cited ar
 
 Arguments:
 * _H_ horizon (maximum number of steps to employ)
-* _lA_ matrix of thresholds
+* _lA_ matrix of the logarithmic thresholds
 * _th_ vector of the hypothesized values of parameter (success probability)
 
 Returns:  the designed truncated MSPRT
@@ -48,7 +48,7 @@ Arguments:
 * _lam_ matrix of Lagrange multipliers
 * _th_ the vector of the hypothesized values of parameter (success probability)
 * _gam_ the vector of weights  used to calculate the weighted expected sample size (ESS) 
-* _thgam_ parameter values at which ESSs are calculated to  be calculated in the weighted ESS 
+* _thgam_ parameter values at which ESSs are calculated to  be used in the weighted ESS 
 
 Returns:  the designed test which approximately minimizes the weighted ESS
 
@@ -65,7 +65,7 @@ Returns: the probability to accept
 
 ### ASN
 
-The function calculating the expected sample number of a test, given a value of the parameter.
+The function calculating the expected sample size of a test, given a value of the parameter.
 
 Arguments:
 * _test_ test designed by any of the functions _OptTest, SimplifiedOpt, MSPRT_
