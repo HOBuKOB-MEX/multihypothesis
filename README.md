@@ -110,5 +110,4 @@ Returns: maximum number of stages
 ## Usage example
 
 * The file [usage.R](usage.R) is a usage example of these functions 
-(corresponds to example 4.2 in the cited [*article*](https://arxiv.org/abs/2210.07203)).
- 
+
