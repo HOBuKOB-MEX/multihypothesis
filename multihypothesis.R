@@ -80,6 +80,49 @@ OptTest <- function(H, lam, th, gam, thgam){
 }
 
 
+SimplifiedOpt<-function(H, lam, th, gam, thgam){
+  fn0 <- function(l) gam[l] * g(thgam[l], 0:n, n)
+  fn1 <- function(j, l) lam[l, j] * g(th[l], 0:n, n)
+
+  k = length(th)
+  m = length(gam)
+  cont = list()
+  accept = list()
+  n = 1
+  repeat{
+    cont[[n]] = rep(TRUE, n + 1)
+    accept[[n]] = rep(0, n + 1)
+    s0 = fn0(1)
+    if (m > 1)
+      for(l in 2:m) s0 = s0 + fn0(l)
+    for(i in 1:k){    
+      s1 = rep(0, n + 1)
+      for (j in 1:k){
+        if (j == i) 
+          next
+        s1 = s1 + fn1(i, j)
+      }
+      cont[[n]] = cont[[n]] & s1 > s0
+      if (i == 1){ 
+        mn = s1 
+        accept[[n]] = rep(1, n + 1)
+      } 
+      else{
+         accept[[n]] = ifelse(mn > s1, rep(i, n + 1), accept[[n]])
+         mn = pmin(mn, s1)
+      }
+    }
+      if( n>= H)break
+  if (all(!cont[[n]])) 
+    break
+  n=n+1
+  }
+  cont[[n]]=rep(FALSE,n+1)
+  test=rbind(cont,accept)
+  return(test)
+}
+
+
 MSPRT <- function(H, lA, th){
 
   cont = list()
@@ -193,8 +236,8 @@ prob_to_stop_after <- function(test, th,k){
 monte_carlo_simulation <- function(K, test, hyp, nMC) {
   # optimal test simulation
   # hyp = true success probability
-  # returns rates of acceptations (OC)
-  # standard error of OC
+  # returns rates of acceptations
+  # standard error of the rates
   # the ASN and its standard errors
 
   cont = test[1,]
