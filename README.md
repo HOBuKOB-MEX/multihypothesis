@@ -63,7 +63,7 @@ Arguments:
 
 Returns: the probability to accept
 
-### ASN
+### ESS
 
 The function calculating the expected sample size of a test, given a value of the parameter.
 

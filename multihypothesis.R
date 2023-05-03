@@ -81,8 +81,8 @@ OptTest <- function(H, lam, th, gam, thgam){
 
 
 SimplifiedOpt<-function(H, lam, th, gam, thgam){
-  fn0 <- function(l) gam[l] * g(thgam[l], 0:n, n)
-  fn1 <- function(j, l) lam[l, j] * g(th[l], 0:n, n)
+  fn0 <- function(l) gam[l] * pmf(n,thgam[l])
+  fn1 <- function(j, l) lam[l, j] * pmf(n,th[l])
 
   k = length(th)
   m = length(gam)
@@ -186,25 +186,25 @@ PAccept <- function(test, th, i){
 }
 
 
-ASN <- function(test, th){
-  # ASN of a test at point th
+ESS <- function(test, th){
+  # ESS of a test at point th
 
   cont = test[1,]
   H = length(cont)
-  asn = list()
-  asn[[H]] = rep(0, H + 1)
+  ess = list()
+  ess[[H]] = rep(0, H + 1)
   if(H == 1)
     return(1)
   for(n in (H-1):1){
     x = seq(0, n + 1)
-    asn[[n]] = ifelse(
+    ess[[n]] = ifelse(
       cont[[n]],
-      (pmf(n, th) + head(asn[[n + 1]] / (n + 1) * (n + 1 - x), n + 1) + tail(asn[[n + 1]] / (n + 1) * (x), n + 1)),
+      (pmf(n, th) + head(ess[[n + 1]] / (n + 1) * (n + 1 - x), n + 1) + tail(ess[[n + 1]] / (n + 1) * (x), n + 1)),
       0
     )
   }
 
-  return(1 + head(asn[[1]], 1) + tail(asn[[1]], 1))
+  return(1 + head(ess[[1]], 1) + tail(ess[[1]], 1))
 }
 
 
@@ -215,30 +215,32 @@ prob_to_stop_after <- function(test, th,k){
   cont = test[1,]
   H = length(cont)
   if(k>=H)return(0)
-  asn = list()
-  asn[[k]] =ifelse(cont[[k]], pmf(k, th), 0)
+  ess = list()
+  ess[[k]] =ifelse(cont[[k]], pmf(k, th), 0)
   if(k <= 0) 
     return(1)
   if(k > 1)
   for(n in (k-1):1){
     x = seq(0, n + 1)
-    asn[[n]] = ifelse(
+    ess[[n]] = ifelse(
       cont[[n]],
-      ( head(asn[[n + 1]] / (n + 1) * (n + 1 - x), n + 1) + tail(asn[[n + 1]] / (n + 1) * (x), n + 1)),
+      ( head(ess[[n + 1]] / (n + 1) * (n + 1 - x), n + 1) + tail(ess[[n + 1]] / (n + 1) * (x), n + 1)),
       0
     )
   }
 
-  return( head(asn[[1]], 1) + tail(asn[[1]], 1))
+  return( head(ess[[1]], 1) + tail(ess[[1]], 1))
 }
 
 
 monte_carlo_simulation <- function(K, test, hyp, nMC) {
-  # optimal test simulation
+  # test simulation
   # hyp = true success probability
   # returns rates of acceptations
   # standard error of the rates
-  # the ASN and its standard errors
+  # the ESS and its standard errors
+  # K number of hypotheses
+  # nMC number of replications for Monte Carlo
 
   cont = test[1,]
   accept = test[2,]
@@ -280,8 +282,8 @@ monte_carlo_simulation <- function(K, test, hyp, nMC) {
   nrep = as.double(nMC)
   OC = (totaccepted) / nrep
   seOC = sqrt(OC * (1 - OC) / nrep)
-  ASN = totn / nrep
-  sdASN = sqrt((ss - totn^2 / nrep) / nrep)
+  ESS = totn / nrep
+  sdESS = sqrt((ss - totn^2 / nrep) / nrep)
 
-  return(list(OC=OC, SEOC=seOC, ASN=ASN, SEASN=sdASN/sqrt(nrep)))
+  return(list(OC=OC, SEOC=seOC, ESS=ESS, SEESS=sdESS/sqrt(nrep)))
 }

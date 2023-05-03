@@ -9,7 +9,7 @@ lam   = c(100,100,100)  # Lagrange multipliers
 l     = array(lam, dim = c(3, 3))  # convert in a matrix
 test  = OptTest(H, l, th, gam, thgam)  # design optimal Bayesian test
 list(setting = "Bayes", ErrorProbabilities = sapply(1:3, function(i) 1 - PAccept(test, th[i], i)),  # calculate error probabilities
-     ESS=sapply(th, function(x) ASN(test, x)), MaxSteps=maxNumber(test))  # calculate ESS
+     ESS=sapply(th, function(x) ESS(test, x)), MaxSteps=maxNumber(test))  # calculate ESS
      
   # modified Kiefer-Weiss setting
 H     = 500  # horizon
@@ -20,6 +20,6 @@ lam   = c(100,100,100)  # Lagrange multipliers
 l     = array(lam, dim = c(3, 3))  # convert in a matrix
 test  = OptTest(H, l, th, gam, thgam)  # use modified Kiefer-Weiss setting
 list(setting = "modified Kiefer-Weiss", ErrorProbabilities = sapply(1:3, function(i) 1 - PAccept(test, th[i], i)),  # calculate error probabilities
-     ESS=sapply(th, function(x) ASN(test, x)), MaxSteps=maxNumber(test))  # calculate ESS
+     ESS=sapply(th, function(x) ESS(test, x)), MaxSteps=maxNumber(test))  # calculate ESS
 
   # details in https://doi.org/10.48550/arXiv.2212.05151
