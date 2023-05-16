@@ -7,7 +7,7 @@ Currently, only the model of binary responses (sampling from a Bernoulli populat
 
 The detailed description of the method and algorithms can be found in
 
-[*Andrey Novikov. A Numerical Approach to Sequential Multi-Hypothesis Testing for Bernoulli Model, 2023*](https://doi.org/10.48550/arXiv.2212.05151)
+[*Andrey Novikov. A Numerical Approach to Sequential Multi-Hypothesis Testing for Bernoulli Model, 2023*](https://doi.org/10.1080/07474946.2023.2215825)
 
 ## Content description
 * The file [multihypothesis.R](multihypothesis.R) contains all the functions providing the  user interface for all the tasks.
