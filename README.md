@@ -7,7 +7,7 @@ Currently, only the model of binary responses (sampling from a Bernoulli populat
 
 The detailed description of the method and algorithms can be found in
 
-[*Andrey Novikov. A Numerical Approach to Sequential Multi-Hypothesis Testing for Bernoulli Model, 2023*](https://doi.org/10.1080/07474946.2023.2215825)
+[*Andrey Novikov. A Numerical Approach to Sequential Multi-Hypothesis Testing for Bernoulli Model, 2023. Secuential Analysis, V.42, no. 3, pp. 303-322 *](https://doi.org/10.1080/07474946.2023.2215825)
 
 ## Content description
 * The file [multihypothesis.R](multihypothesis.R) contains all the functions providing the  user interface for all the tasks.
@@ -38,9 +38,9 @@ Arguments:
 
 Returns:  the designed truncated MSPRT
 
-### SimplifiedOpt
+### DBCTest
 
-The function for designing the simplified version of the optimal truncated sequential multi-hypothesis test.
+The function for designing the simplified (Dropped Backward Control-)version of the optimal truncated sequential multi-hypothesis test.
 (To be published soon)
 
 Arguments:
@@ -57,7 +57,7 @@ Returns:  the designed test which approximately minimizes the weighted ESS
 The function calculating the probability to accept a hypothesis given a value of the parameter. 
 
 Arguments:
-* _test_ test designed by any of the functions _OptTest, SimplifiedOpt, MSPRT_ 
+* _test_ test designed by any of the functions _OptTest, DBCTest, MSPRT_ 
 * _th_ parameter value at which the probability to accept the hypothesis is calculated
 * _i_ number of the hypothesis whose acceptance probability is evaluated
 
@@ -68,7 +68,7 @@ Returns: the probability to accept
 The function calculating the expected sample size of a test, given a value of the parameter.
 
 Arguments:
-* _test_ test designed by any of the functions _OptTest, SimplifiedOpt, MSPRT_
+* _test_ test designed by any of the functions _OptTest, DBCTest, MSPRT_
 * _th_ parameter value at which the ESS is calculated
 
 Returns: ESS
@@ -78,7 +78,7 @@ Returns: ESS
 The function calculating the probability that the test stops after a given stage number.
 
 Arguments:
-* _test_ test designed by any of the functions _OptTest, SimplifiedOpt, MSPRT_
+* _test_ test designed by any of the functions _OptTest, DBCTest, MSPRT_
 * _th_ parameter value at which the probability is calculated
 * _k_ the stage number
 
@@ -90,7 +90,7 @@ The function for carrying out Monte Carlo simulations
 
 Arguments:
 
-* _test_ test designed by any of the functions _OptTest, SimplifiedOpt, MSPRT_
+* _test_ test designed by any of the functions _OptTest, DBCTest, MSPRT_
 * _hyp_ parameter value for the simulation
 * _K_  number of hypotheses
 * _nMC_ number of replications for the simulation
@@ -103,7 +103,7 @@ The function to determine the maximum number of stages the test uses
 
 Arguments:
 
-* _test_ test designed by any of the functions _OptTest, SimplifiedOpt, MSPRT_
+* _test_ test designed by any of the functions _OptTest, DBCTest, MSPRT_
 
 Returns: maximum number of stages
 

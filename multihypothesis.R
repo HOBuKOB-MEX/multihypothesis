@@ -80,7 +80,7 @@ OptTest <- function(H, lam, th, gam, thgam){
 }
 
 
-SimplifiedOpt<-function(H, lam, th, gam, thgam){
+DBCTest<-function(H, lam, th, gam, thgam){
   fn0 <- function(l) gam[l] * pmf(n,thgam[l])
   fn1 <- function(j, l) lam[l, j] * pmf(n,th[l])
 
